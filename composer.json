@@ -1,0 +1,22 @@
+{
+    "name": "yasir-dev/mvc-blog",
+    "description": "A simple php mvc blog written from scratch without any MVC framework",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yasir Khurshid",
+            "email": "yasir.khurshid@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/",
+            "app\\": "app/"
+        }
+    }
+}

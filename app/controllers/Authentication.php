@@ -36,7 +36,7 @@ class Authentication extends AbstractController
         $password = $request->get('password');
 
         if ('' === $userName || '' === $password ) {
-            (new RedirectLocation())->redirect('/authentication/login');
+            RedirectLocation::redirect('/authentication/login');
             return;
         }
 
@@ -44,11 +44,11 @@ class Authentication extends AbstractController
 
         if (true === (bool) $user && true === $this->verifyPassword($password, $user['password'])) {
             $this->session->set('login', true)->set('username', $userName);
-            (new RedirectLocation())->redirect('/');
+            RedirectLocation::redirect('/');
             return;
         }
 
-        (new RedirectLocation())->redirect('/authentication/login');
+        RedirectLocation::redirect('/authentication/login');
     }
 
     /**
@@ -71,12 +71,12 @@ class Authentication extends AbstractController
         $passwordMatch = $request->get('password_match');
 
         if ('' === $userName || '' === $password || $password !== $passwordMatch) {
-            (new RedirectLocation())->redirect('/authentication/register');
+            RedirectLocation::redirect('/authentication/register');
             return;
         }
 
         (new User())->register($userName, $this->getHashedPassword($password));
-        (new RedirectLocation())->redirect('/authentication/login');
+        RedirectLocation::redirect('/authentication/login');
     }
 
     /**
@@ -85,7 +85,7 @@ class Authentication extends AbstractController
     public function logoutAction()
     {
         $this->session->destroy();
-        (new RedirectLocation())->redirect('/');
+        RedirectLocation::redirect('/');
     }
 
     /**

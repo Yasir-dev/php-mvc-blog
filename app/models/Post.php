@@ -67,6 +67,18 @@ class Post extends AbstractModel
     }
 
     /**
+     * Delete post
+     *
+     * @param int $postId Post Id
+     */
+    public function delete($postId)
+    {
+        $statement = $this->getDatabaseConnection()->prepare($this->getDeleteByIdQuery());
+        $statement->bindValue(':id', $postId, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    /**
      * Return select all query
      *
      * @return string
@@ -101,6 +113,19 @@ class Post extends AbstractModel
     {
         return \sprintf(
             "INSERT INTO %s (title, body, username) VALUES (:title, :body, :username)",
+            self::TABLE_NAME
+        );
+    }
+
+    /**
+     * Return delete query
+     *
+     * @return string
+     */
+    private function getDeleteByIdQuery()
+    {
+        return \sprintf(
+            'DELETE FROM %s WHERE id = :id',
             self::TABLE_NAME
         );
     }

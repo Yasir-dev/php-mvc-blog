@@ -12,19 +12,49 @@ namespace app;
 class Request
 {
     /**
+     * Post request method
+     */
+    const METHOD_POST = 'post';
+
+    /**
+     * Get request method
+     */
+    const METHOD_GET = 'get';
+
+    /**
      * Return the request parameter
      *
      * @param string $parameter           Parameter
      * @param bool   $convertSpecialChars Special chars flag
+     * @param string $method              Request method
      *
      * @return mixed
      */
-    public function get($parameter, $convertSpecialChars = false)
+    public function get($parameter, $convertSpecialChars = false, $method = self::METHOD_POST)
     {
+        $value = $this->getParameter($parameter, $method);
+
         if (true === $convertSpecialChars) {
-            return \htmlentities($_POST[$parameter]);
+            return \htmlentities($value);
         }
 
-        return filter_var($_POST[$parameter], FILTER_SANITIZE_STRING);
+        return filter_var($value, FILTER_SANITIZE_STRING);
+    }
+
+    /**
+     * Retuen parameter value based on the request method
+     *
+     * @param string $parameter Parameter
+     * @param string $method    Special chars flag
+     *
+     * @return mixed
+     */
+    private function getParameter(string $parameter, string $method)
+    {
+        if ($method === self::METHOD_POST) {
+            return $_POST[$parameter];
+        }
+
+        return $_GET[$parameter];
     }
 }

@@ -8,6 +8,11 @@
         </div>
         <div class="panel-body">
             {{ post.body | raw }}
+            {% if name == post.username %}
+                <p>
+                    <span class="pull-right"> <a href="/post/{{ post.id }}/delete"> DELETE</a> </span>
+                </p>
+            {% endif %}
         </div>
     </div>
     {% for comment in comments %}
@@ -18,6 +23,11 @@
             </div>
             <div class="panel-body">
                 {{ comment.body }}
+                {% if name == comment.username %}
+                <p>
+                    <span class="pull-right"> <a href="/post/{{ comment.id }}/delete-comment?postId={{ post.id }}"> DELETE</a> </span>
+                </p>
+                {% endif %}
             </div>
         </div>
     {% endfor %}

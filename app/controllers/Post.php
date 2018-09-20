@@ -50,7 +50,7 @@ class Post extends AbstractController
             return;
         }
 
-        (new RedirectLocation())->redirect('/');
+        RedirectLocation::redirect('/');
 
     }
 
@@ -65,7 +65,7 @@ class Post extends AbstractController
         $userName = $this->session->get('username');
 
         (new \app\models\Post())->save($title, $body, $userName);
-        (new RedirectLocation())->redirect('/');
+        RedirectLocation::redirect('/');
 
     }
 
@@ -79,7 +79,7 @@ class Post extends AbstractController
             return;
         }
 
-        (new RedirectLocation())->redirect('/');
+        RedirectLocation::redirect('/');
     }
 
     /**
@@ -93,6 +93,30 @@ class Post extends AbstractController
         $userName = $this->session->get('username');
 
         (new Comment())->save($postId, $body, $userName);
-        (new RedirectLocation())->redirect('/post/'.$postId.'/show');
+        RedirectLocation::redirect('/post/'.$postId.'/show');
+    }
+
+    /**
+     * Delete post action
+     */
+    public function deleteAction()
+    {
+        $postId = $this->routeParameters['id'];
+
+        (new \app\models\Post())->delete($postId);
+        (new Comment())->deleteByPostId($postId);
+
+        RedirectLocation::redirect('/');
+    }
+
+    public function deleteCommentAction()
+    {
+        $postId = (new Request())->get('postId', false, Request::METHOD_GET);
+
+        $commentId = $this->routeParameters['id'];
+
+        (new Comment())->deleteById($commentId);
+
+        RedirectLocation::redirect('/post/'.$postId.'/show');
     }
 }

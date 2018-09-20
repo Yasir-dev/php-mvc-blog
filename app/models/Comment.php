@@ -53,11 +53,35 @@ class Comment extends AbstractModel
     }
 
     /**
+     * Delete comments for a post
+     *
+     * @param int $postId
+     */
+    public function deleteByPostId(int $postId)
+    {
+        $statement = $this->getDatabaseConnection()->prepare($this->getDeletePostByIdQuery());
+        $statement->bindValue(':post_id', $postId, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    /**
+     * Delete a comment
+     *
+     * @param int $commentId Comment Id
+     */
+    public function deleteById(int $commentId)
+    {
+        $statement = $this->getDatabaseConnection()->prepare($this->getDeleteByIdQuery());
+        $statement->bindValue(':id', $commentId, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    /**
      * Return select query
      *
      * @return string
      */
-    private function getSelectQuery()
+    private function getSelectQuery(): string
     {
         return \sprintf(
             'SELECT * FROM %s WHERE post_id = :post_id',
@@ -70,10 +94,36 @@ class Comment extends AbstractModel
      *
      * @return string
      */
-    private function getInsertQuery()
+    private function getInsertQuery(): string
     {
         return \sprintf(
             'INSERT INTO %s (post_id, body, username) VALUES (:post_id, :body, :username)',
+            self::TABLE_NAME
+        );
+    }
+
+    /**
+     * Return delete query
+     *
+     * @return string
+     */
+    private function getDeletePostByIdQuery()
+    {
+        return \sprintf(
+            'DELETE FROM %s WHERE post_id = :post_id',
+            self::TABLE_NAME
+        );
+    }
+
+    /**
+     * Return delete query
+     *
+     * @return string
+     */
+    private function getDeleteByIdQuery()
+    {
+        return \sprintf(
+            'DELETE FROM %s WHERE id = :id',
             self::TABLE_NAME
         );
     }

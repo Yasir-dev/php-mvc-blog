@@ -24,7 +24,7 @@ class Post extends AbstractController
      */
     public function showAction()
     {
-        $postId = $this->routeParameters['id'];
+        $postId = $this->getId();
         $post = (new \app\models\Post())->getById($postId);
         $comments = (new Comment())->getByPostId($postId);
 
@@ -101,7 +101,7 @@ class Post extends AbstractController
      */
     public function deleteAction()
     {
-        $postId = $this->routeParameters['id'];
+        $postId = $this->getId();
 
         (new \app\models\Post())->delete($postId);
         (new Comment())->deleteByPostId($postId);
@@ -112,11 +112,18 @@ class Post extends AbstractController
     public function deleteCommentAction()
     {
         $postId = (new Request())->get('postId', false, Request::METHOD_GET);
-
-        $commentId = $this->routeParameters['id'];
-
-        (new Comment())->deleteById($commentId);
+        (new Comment())->deleteById($this->getId());
 
         RedirectLocation::redirect('/post/'.$postId.'/show');
+    }
+
+    /**
+     * Return id
+     *
+     * @return int
+     */
+    private function getId()
+    {
+        return $this->routeParameters['id'];
     }
 }

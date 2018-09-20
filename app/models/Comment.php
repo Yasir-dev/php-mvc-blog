@@ -35,6 +35,22 @@ class Comment extends AbstractModel
     }
 
     /**
+     * Return comments by post id
+     *
+     * @param int $postId Post id
+     *
+     * @return array
+     */
+    public function getByUser($userName)
+    {
+        $statement = $this->getDatabaseConnection()->prepare($this->getSelectByUserQuery());
+        $statement->bindValue(':username', $userName, \PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    /**
      * Save comment
      *
      * @param int    $postId   Post id
@@ -85,6 +101,19 @@ class Comment extends AbstractModel
     {
         return \sprintf(
             'SELECT * FROM %s WHERE post_id = :post_id',
+            self::TABLE_NAME
+        );
+    }
+
+    /**
+     * Return select query
+     *
+     * @return string
+     */
+    private function getSelectByUserQuery(): string
+    {
+        return \sprintf(
+            'SELECT * FROM %s WHERE username = :username',
             self::TABLE_NAME
         );
     }

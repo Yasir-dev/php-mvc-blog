@@ -48,6 +48,22 @@ class Post extends AbstractModel
     }
 
     /**
+     * Return posts by user
+     *
+     * @param string $userName User name
+     *
+     * @return array
+     */
+    public function getByUser($userName)
+    {
+        $statement = $this->getDatabaseConnection()->prepare($this->getSelectByUserQuery());
+        $statement->bindValue(':username', $userName, \PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    /**
      * Save Post
      *
      * @param string $title    Title
@@ -100,6 +116,19 @@ class Post extends AbstractModel
     {
         return \sprintf(
             'SELECT * FROM %s WHERE id = :id',
+            self::TABLE_NAME
+        );
+    }
+
+    /**
+     * Return select by id query
+     *
+     * @return string
+     */
+    private function getSelectByUserQuery()
+    {
+        return \sprintf(
+            'SELECT * FROM %s WHERE username = :username',
             self::TABLE_NAME
         );
     }

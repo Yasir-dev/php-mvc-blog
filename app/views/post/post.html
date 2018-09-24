@@ -15,6 +15,15 @@
             {% endif %}
         </div>
     </div>
+    <p>
+        <b>
+            {% if 1 < total_comments %}
+                {{total_comments}} comments
+            {% else %}
+                {{total_comments}} comment
+            {% endif %}
+        </b>
+    </p>
     {% for comment in comments %}
         <div class="panel panel-default">
             <div class="panel-heading">

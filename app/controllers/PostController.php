@@ -31,7 +31,13 @@ class PostController extends AbstractController
 
         View::renderTemplate(
             'post/post.html',
-            array('post' => $post, 'comments' => $comments,'is_logged' => $this->session->get('login'), 'name' =>  $this->session->get('username') )
+            array(
+                'post' => $post,
+                'comments' => $comments,
+                'total_comments' => \sizeof($comments),
+                'is_logged' => $this->session->get('login'),
+                'name' =>  $this->session->get('username')
+            )
         );
     }
 

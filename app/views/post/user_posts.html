@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for post in posts %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/post/{{ post.id }}/show">{{ post.title | title | raw }}</a> - <small>{{ post.username }}</small>
+
+            <span class="pull-right">{{ post.created_at | date("F j, Y, g:i a")  }}</span>
+        </div>
+        <div class="panel-body">
+            {{ post.body | raw}}
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

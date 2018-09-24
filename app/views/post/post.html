@@ -3,7 +3,7 @@
 {% block content %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <strong>{{ post.title | title | raw }}</strong> - <small> {{ post.username }}</small>
+            <strong>{{ post.title | title | raw }}</strong> - <small> <a href="/post/user?name={{post.username}}">{{ post.username }}</a></small>
             <span class="pull-right">{{ post.created_at | date("F j, Y, g:i a")  }}</span>
         </div>
         <div class="panel-body">
@@ -18,7 +18,7 @@
     {% for comment in comments %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i>{{ comment.username }} commented</i>
+                <i><a href="/post/user-comment?name={{ comment.username }}">{{ comment.username }}</a> commented</i>
                 <span class="pull-right">{{ comment.created_at | date("F j, Y, g:i a")  }}</span>
             </div>
             <div class="panel-body">

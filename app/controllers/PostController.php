@@ -36,6 +36,29 @@ class PostController extends AbstractController
     }
 
     /**
+     * Show posts of a user
+     */
+    public function userAction()
+    {
+        $posts = (new PostModel())->getByUser((new Request())->get('name', false, Request::METHOD_GET));
+
+        View::renderTemplate(
+            'post/user_posts.html',
+            array('posts' => $posts, 'is_logged' => $this->session->get('login'), 'name' =>  $this->session->get('username'))
+        );
+    }
+
+    public function userCommentAction()
+    {
+        $comments = (new CommentModel())->getByUser((new Request())->get('name', false, Request::METHOD_GET));
+
+        View::renderTemplate(
+            'post/user_comments.html',
+            array('comments' => $comments, 'is_logged' => $this->session->get('login'), 'name' =>  $this->session->get('username'))
+        );
+    }
+
+    /**
      * Add post action
      *
      * @return void

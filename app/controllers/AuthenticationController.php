@@ -31,9 +31,8 @@ class AuthenticationController extends AbstractController
      */
     public function loginPostAction()
     {
-        $request = (new Request());
-        $userName = $request->get('username');
-        $password = $request->get('password');
+        $userName = Request::get('username');
+        $password = Request::get('password');
 
         if ('' === $userName || '' === $password ) {
             RedirectLocation::redirect('/authentication/login');
@@ -64,11 +63,9 @@ class AuthenticationController extends AbstractController
      */
     public function registerPostAction()
     {
-        $request = (new Request());
-
-        $userName = $request->get('username');
-        $password = $request->get('password');
-        $passwordMatch = $request->get('password_match');
+        $userName = Request::get('username');
+        $password = Request::get('password');
+        $passwordMatch = Request::get('password_match');
 
         if ('' === $userName || '' === $password || $password !== $passwordMatch) {
             RedirectLocation::redirect('/authentication/register');

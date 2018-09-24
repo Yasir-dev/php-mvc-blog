@@ -40,7 +40,7 @@ class PostController extends AbstractController
      */
     public function userAction()
     {
-        $posts = (new PostModel())->getByUser((new Request())->get('name', false, Request::METHOD_GET));
+        $posts = (new PostModel())->getByUser(Request::get('name', false, Request::METHOD_GET));
 
         View::renderTemplate(
             'post/user_posts.html',
@@ -50,7 +50,7 @@ class PostController extends AbstractController
 
     public function userCommentAction()
     {
-        $comments = (new CommentModel())->getByUser((new Request())->get('name', false, Request::METHOD_GET));
+        $comments = (new CommentModel())->getByUser(Request::get('name', false, Request::METHOD_GET));
 
         View::renderTemplate(
             'post/user_comments.html',
@@ -83,9 +83,8 @@ class PostController extends AbstractController
      */
     public function saveAction()
     {
-        $request = (new Request());
-        $title = $request->get('title', true);
-        $body  = $request->get('body', true);
+        $title = Request::get('title', true);
+        $body  = Request::get('body', true);
         $userName = $this->session->get('username');
 
         (new PostModel())->save($title, $body, $userName);
@@ -111,9 +110,8 @@ class PostController extends AbstractController
      */
     public function saveCommentAction()
     {
-        $request = (new Request());
-        $postId  = $request->get('postId');
-        $body  = $request->get('body', true);
+        $postId  = Request::get('postId');
+        $body  = Request::get('body', true);
         $userName = $this->session->get('username');
 
         (new CommentModel())->save($postId, $body, $userName);
@@ -135,7 +133,7 @@ class PostController extends AbstractController
 
     public function deleteCommentAction()
     {
-        $postId = (new Request())->get('postId', false, Request::METHOD_GET);
+        $postId = Request::get('postId', false, Request::METHOD_GET);
         (new CommentModel())->deleteById($this->getId());
 
         RedirectLocation::redirect('/post/'.$postId.'/show');

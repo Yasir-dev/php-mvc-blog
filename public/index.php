@@ -1,5 +1,8 @@
 <?php
 
+use app\Request;
+use core\Router;
+
 /**
  * Front controller
  *
@@ -23,9 +26,9 @@ set_exception_handler('core\ErrorHandler::handleException');
 /**
  * Routing
  */
-$router = new core\Router();
+$router = new Router();
 
 $router->add('', ['controller' => 'Home', 'action' => 'index'])
     ->add('{controller}/{action}')
     ->add('{controller}/{id:\d+}/{action}')
-    ->dispatch((new \app\Request())->getQueryString());
+    ->dispatch(Request::getQueryString());

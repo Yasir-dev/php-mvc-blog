@@ -30,9 +30,9 @@ class Request
      *
      * @return mixed
      */
-    public function get($parameter, $convertSpecialChars = false, $method = self::METHOD_POST)
+    public static function get($parameter, $convertSpecialChars = false, $method = self::METHOD_POST)
     {
-        $value = $this->getParameter($parameter, $method);
+        $value = self::getParameter($parameter, $method);
 
         if (true === $convertSpecialChars) {
             return \htmlentities($value);
@@ -46,7 +46,7 @@ class Request
      *
      * @return mixed
      */
-    public function getQueryString()
+    public static function getQueryString()
     {
         return $_SERVER['QUERY_STRING'];
     }
@@ -59,7 +59,7 @@ class Request
      *
      * @return mixed
      */
-    private function getParameter(string $parameter, string $method)
+    private static function getParameter(string $parameter, string $method)
     {
         if ($method === self::METHOD_POST) {
             return $_POST[$parameter];

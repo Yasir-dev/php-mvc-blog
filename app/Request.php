@@ -12,7 +12,7 @@ namespace app;
 class Request
 {
     /**
-     * Post request method
+     * PostController request method
      */
     const METHOD_POST = 'post';
 
@@ -42,7 +42,17 @@ class Request
     }
 
     /**
-     * Retuen parameter value based on the request method
+     * Return query string
+     *
+     * @return mixed
+     */
+    public function getQueryString()
+    {
+        return $_SERVER['QUERY_STRING'];
+    }
+
+    /**
+     * Return parameter value based on the request method
      *
      * @param string $parameter Parameter
      * @param string $method    Special chars flag

@@ -15,7 +15,7 @@ class Router
     /**
      * Controller namespace
      */
-    const CONTROLLER_NAMESPACE_PATTERN = 'app\controllers\\%s';
+    const CONTROLLER_NAMESPACE_PATTERN = 'app\controllers\\%sController';
 
     /**
      * Array of routes (Routing table)

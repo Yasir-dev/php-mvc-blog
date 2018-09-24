@@ -5,52 +5,39 @@ namespace app\models;
 use core\AbstractModel;
 
 /**
- * Post Model
+ * CommentModel Model
  *
  * PHP version 7
  *
  * @author yasir khurshid <yasir.khurshid@gmail.com>
  */
-class Post extends AbstractModel
+class CommentModel extends AbstractModel
 {
     /**
-     * posts table
+     * Database table name
      */
-    const TABLE_NAME = 'posts';
+    const TABLE_NAME = 'comments';
 
     /**
-     * Return all posts
+     * Return comments by post id
+     *
+     * @param int $postId PostController id
      *
      * @return array
      */
-    public function getAll()
+    public function getByPostId($postId)
     {
-        $statement = $this->getDatabaseConnection()->prepare($this->getSelectAllQuery());
+        $statement = $this->getDatabaseConnection()->prepare($this->getSelectQuery());
+        $statement->bindValue(':post_id', $postId, \PDO::PARAM_INT);
         $statement->execute();
 
         return $statement->fetchAll();
     }
 
     /**
-     * Return post by ids
+     * Return comments by post id
      *
-     * @param int $id Id
-     *
-     * @return array
-     */
-    public function getById($id)
-    {
-        $statement = $this->getDatabaseConnection()->prepare($this->getSelectByIdQuery());
-        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-
-        return $statement->fetch();
-    }
-
-    /**
-     * Return posts by user
-     *
-     * @param string $userName User name
+     * @param int $postId PostController id
      *
      * @return array
      */
@@ -64,68 +51,66 @@ class Post extends AbstractModel
     }
 
     /**
-     * Save Post
+     * Save comment
      *
-     * @param string $title    Title
+     * @param int    $postId   PostController id
      * @param string $body     Body
      * @param string $username Username
      *
      * @return void
      */
-    public function save($title, $body, $username)
+    public function save($postId, $body, $username)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getInsertQuery());
-        $statement->bindValue(':title', $title, \PDO::PARAM_STR);
+        $statement->bindValue(':post_id', $postId, \PDO::PARAM_INT);
         $statement->bindValue(':body', $body, \PDO::PARAM_STR);
         $statement->bindValue(':username', $username, \PDO::PARAM_STR);
-
         $statement->execute();
     }
 
     /**
-     * Delete post
+     * Delete comments for a post
      *
-     * @param int $postId Post Id
+     * @param int $postId
      */
-    public function delete($postId)
+    public function deleteByPostId(int $postId)
+    {
+        $statement = $this->getDatabaseConnection()->prepare($this->getDeletePostByIdQuery());
+        $statement->bindValue(':post_id', $postId, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    /**
+     * Delete a comment
+     *
+     * @param int $commentId CommentModel Id
+     */
+    public function deleteById(int $commentId)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getDeleteByIdQuery());
-        $statement->bindValue(':id', $postId, \PDO::PARAM_INT);
+        $statement->bindValue(':id', $commentId, \PDO::PARAM_INT);
         $statement->execute();
     }
 
     /**
-     * Return select all query
+     * Return select query
      *
      * @return string
      */
-    private function getSelectAllQuery()
+    private function getSelectQuery(): string
     {
         return \sprintf(
-            'SELECT * FROM %s',
+            'SELECT * FROM %s WHERE post_id = :post_id',
             self::TABLE_NAME
         );
     }
 
     /**
-     * Return select by id query
+     * Return select query
      *
      * @return string
      */
-    private function getSelectByIdQuery()
-    {
-        return \sprintf(
-            'SELECT * FROM %s WHERE id = :id',
-            self::TABLE_NAME
-        );
-    }
-
-    /**
-     * Return select by id query
-     *
-     * @return string
-     */
-    private function getSelectByUserQuery()
+    private function getSelectByUserQuery(): string
     {
         return \sprintf(
             'SELECT * FROM %s WHERE username = :username',
@@ -138,10 +123,23 @@ class Post extends AbstractModel
      *
      * @return string
      */
-    private function getInsertQuery()
+    private function getInsertQuery(): string
     {
         return \sprintf(
-            "INSERT INTO %s (title, body, username) VALUES (:title, :body, :username)",
+            'INSERT INTO %s (post_id, body, username) VALUES (:post_id, :body, :username)',
+            self::TABLE_NAME
+        );
+    }
+
+    /**
+     * Return delete query
+     *
+     * @return string
+     */
+    private function getDeletePostByIdQuery()
+    {
+        return \sprintf(
+            'DELETE FROM %s WHERE post_id = :post_id',
             self::TABLE_NAME
         );
     }

@@ -5,13 +5,13 @@ namespace app\models;
 use core\AbstractModel;
 
 /**
- * User Model
+ * UserModel Model
  *
  * PHP version 7
  *
  * @author yasir khurshid <yasir.khurshid@gmail.com>
  */
-class User extends AbstractModel
+class UserModel extends AbstractModel
 {
     /**
      * posts table

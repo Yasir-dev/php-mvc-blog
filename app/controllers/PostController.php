@@ -2,20 +2,21 @@
 
 namespace app\controllers;
 
-use app\models\Comment;
+use app\models\CommentModel;
+use app\models\PostModel;
 use app\RedirectLocation;
 use app\Request;
 use core\AbstractController;
 use core\View;
 
 /**
- * Post controller
+ * PostController controller
  *
  * PHP version 7
  *
  * @author yasir khurshid <yasir.khurshid@gmail.com>
  */
-class Post extends AbstractController
+class PostController extends AbstractController
 {
     /**
      * Show index page
@@ -25,8 +26,8 @@ class Post extends AbstractController
     public function showAction()
     {
         $postId = $this->getId();
-        $post = (new \app\models\Post())->getById($postId);
-        $comments = (new Comment())->getByPostId($postId);
+        $post = (new PostModel())->getById($postId);
+        $comments = (new CommentModel())->getByPostId($postId);
 
         View::renderTemplate(
             'post/post.html',
@@ -64,7 +65,7 @@ class Post extends AbstractController
         $body  = $request->get('body', true);
         $userName = $this->session->get('username');
 
-        (new \app\models\Post())->save($title, $body, $userName);
+        (new PostModel())->save($title, $body, $userName);
         RedirectLocation::redirect('/');
 
     }
@@ -92,7 +93,7 @@ class Post extends AbstractController
         $body  = $request->get('body', true);
         $userName = $this->session->get('username');
 
-        (new Comment())->save($postId, $body, $userName);
+        (new CommentModel())->save($postId, $body, $userName);
         RedirectLocation::redirect('/post/'.$postId.'/show');
     }
 
@@ -103,8 +104,8 @@ class Post extends AbstractController
     {
         $postId = $this->getId();
 
-        (new \app\models\Post())->delete($postId);
-        (new Comment())->deleteByPostId($postId);
+        (new PostModel())->delete($postId);
+        (new CommentModel())->deleteByPostId($postId);
 
         RedirectLocation::redirect('/');
     }
@@ -112,7 +113,7 @@ class Post extends AbstractController
     public function deleteCommentAction()
     {
         $postId = (new Request())->get('postId', false, Request::METHOD_GET);
-        (new Comment())->deleteById($this->getId());
+        (new CommentModel())->deleteById($this->getId());
 
         RedirectLocation::redirect('/post/'.$postId.'/show');
     }

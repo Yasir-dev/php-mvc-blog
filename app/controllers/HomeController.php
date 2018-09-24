@@ -4,16 +4,16 @@ namespace app\controllers;
 
 use core\AbstractController;
 use core\View;
-use app\models\Post;
+use app\models\PostModel;
 
 /**
- * Home Controller
+ * HomeController Controller
  *
  * PHP version 7
  *
  * @author yasir khurshid <yasir.khurshid@gmail.com>
  */
-class Home extends AbstractController
+class HomeController extends AbstractController
 {
     /**
      * Show index page
@@ -22,7 +22,7 @@ class Home extends AbstractController
      */
     public function indexAction()
     {
-        $posts = (new Post())->getAll();
+        $posts = (new PostModel())->getAll();
 
         View::renderTemplate(
             'index.html',

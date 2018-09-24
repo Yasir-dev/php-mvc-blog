@@ -3,20 +3,20 @@
 namespace app\controllers;
 
 use app\AppConfig;
-use app\models\User;
+use app\models\UserModel;
 use app\RedirectLocation;
 use app\Request;
 use core\AbstractController;
 use core\View;
 
 /**
- * User Authentication controller
+ * UserModel AuthenticationController controller
  *
  * PHP version 7
  *
  * @author yasir khurshid <yasir.khurshid@gmail.com>
  */
-class Authentication extends AbstractController
+class AuthenticationController extends AbstractController
 {
     /**
      * Show login view
@@ -27,7 +27,7 @@ class Authentication extends AbstractController
     }
 
     /**
-     * Post login action
+     * PostController login action
      */
     public function loginPostAction()
     {
@@ -40,7 +40,7 @@ class Authentication extends AbstractController
             return;
         }
 
-        $user = (new User())->login($userName);
+        $user = (new UserModel())->login($userName);
 
         if (true === (bool) $user && true === $this->verifyPassword($password, $user['password'])) {
             $this->session->set('login', true)->set('username', $userName);
@@ -60,7 +60,7 @@ class Authentication extends AbstractController
     }
 
     /**
-     * Post register action
+     * PostController register action
      */
     public function registerPostAction()
     {
@@ -75,7 +75,7 @@ class Authentication extends AbstractController
             return;
         }
 
-        (new User())->register($userName, $this->getHashedPassword($password));
+        (new UserModel())->register($userName, $this->getHashedPassword($password));
         RedirectLocation::redirect('/authentication/login');
     }
 

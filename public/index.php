@@ -28,4 +28,4 @@ $router = new core\Router();
 $router->add('', ['controller' => 'Home', 'action' => 'index'])
     ->add('{controller}/{action}')
     ->add('{controller}/{id:\d+}/{action}')
-    ->dispatch($_SERVER['QUERY_STRING']);
+    ->dispatch((new \app\Request())->getQueryString());

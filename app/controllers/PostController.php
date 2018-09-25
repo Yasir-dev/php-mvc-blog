@@ -81,7 +81,6 @@ class PostController extends AbstractController
         }
 
         RedirectLocation::redirect('/');
-
     }
 
     /**
@@ -89,13 +88,12 @@ class PostController extends AbstractController
      */
     public function saveAction()
     {
-        $title = Request::get('title', true);
-        $body  = Request::get('body', true);
-        $userName = $this->session->get('username');
-
-        (new PostModel())->save($title, $body, $userName);
+        (new PostModel())->save(
+            Request::get('title', true),
+            Request::get('body', true),
+            $this->session->get('username')
+        );
         RedirectLocation::redirect('/');
-
     }
 
     /**
@@ -137,6 +135,42 @@ class PostController extends AbstractController
         RedirectLocation::redirect('/');
     }
 
+    /**
+     * Edit action
+     */
+    public function editAction()
+    {
+        $post = (new PostModel())->getById($this->getId());
+        $isLoggedIn = $this->session->get('login');
+
+        if ($isLoggedIn) {
+            View::renderTemplate(
+                'post/add_post.html',
+                array(
+                    'is_logged' => $isLoggedIn,
+                    'name' =>  $this->session->get('username'),
+                    'edit' => true,
+                    'post' => $post
+                )
+            );
+            return;
+        }
+
+        RedirectLocation::redirect('/');
+    }
+
+    /**
+     * Edit post action
+     */
+    public function editPostAction()
+    {
+        (new PostModel())->update($this->getId(), Request::get('title', true), Request::get('body', true));
+        RedirectLocation::redirect('/post/'.$this->getId().'/show');
+    }
+
+    /**
+     * Delete post comment
+     */
     public function deleteCommentAction()
     {
         $postId = Request::get('postId', false, Request::METHOD_GET);

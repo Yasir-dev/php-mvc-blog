@@ -64,7 +64,7 @@ class PostModel extends AbstractModel
     }
 
     /**
-     * Save PostController
+     * Save post
      *
      * @param string $title    Title
      * @param string $body     Body
@@ -78,6 +78,25 @@ class PostModel extends AbstractModel
         $statement->bindValue(':title', $title, \PDO::PARAM_STR);
         $statement->bindValue(':body', $body, \PDO::PARAM_STR);
         $statement->bindValue(':username', $username, \PDO::PARAM_STR);
+
+        $statement->execute();
+    }
+
+    /**
+     * Update post
+     *
+     * @param int    $postId Post id
+     * @param string $title  Title
+     * @param string $body   Body
+     *
+     * @return void
+     */
+    public function update($postId, $title, $body)
+    {
+        $statement = $this->getDatabaseConnection()->prepare($this->getUpdateQuery());
+        $statement->bindValue(':title', $title, \PDO::PARAM_STR);
+        $statement->bindValue(':body', $body, \PDO::PARAM_STR);
+        $statement->bindValue(':id', $postId, \PDO::PARAM_INT);
 
         $statement->execute();
     }
@@ -142,6 +161,19 @@ class PostModel extends AbstractModel
     {
         return \sprintf(
             "INSERT INTO %s (title, body, username) VALUES (:title, :body, :username)",
+            self::TABLE_NAME
+        );
+    }
+
+    /**
+     * Return update query
+     *
+     * @return string
+     */
+    private function getUpdateQuery()
+    {
+        return \sprintf(
+            "UPDATE %s SET title = :title, body = :body WHERE id = :id",
             self::TABLE_NAME
         );
     }

@@ -10,7 +10,11 @@
             {{ post.body | raw }}
             {% if name == post.username %}
                 <p>
-                    <span class="pull-right"> <a href="/post/{{ post.id }}/delete"> DELETE</a> </span>
+                    <span class="pull-right">
+                        <a href="/post/{{ post.id }}/edit">EDIT</a>
+                        <span>&#124;</span>
+                        <a href="/post/{{ post.id }}/delete">DELETE</a>
+                    </span>
                 </p>
             {% endif %}
         </div>

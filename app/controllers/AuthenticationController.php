@@ -47,7 +47,7 @@ class AuthenticationController extends AbstractController
             return;
         }
 
-        RedirectLocation::redirect('/authentication/login');
+        View::renderTemplate('user/login.html', array('login_fail' => true));
     }
 
     /**

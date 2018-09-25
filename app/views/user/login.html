@@ -7,6 +7,11 @@
                 Login
             </div>
             <div class="panel-body">
+                {%if login_fail %}
+                    <div class="alert alert-danger">
+                        Incorrect login details.
+                    </div>
+                {% endif %}
                 <form method="post" action="/authentication/loginPost">
                     <div class="form-group">
                         <label for="username">Username</label>

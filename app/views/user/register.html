@@ -7,6 +7,12 @@
                 Register
             </div>
             <div class="panel-body">
+                {%if register_fail %}
+                    <div class="alert alert-danger">
+                        Username already exists.
+                    </div>
+                {% endif %}
+
                 <form method="post" action="/authentication/registerPost">
                     <div class="form-group">
                         <label for="username">Username</label>

@@ -72,6 +72,13 @@ class AuthenticationController extends AbstractController
             return;
         }
 
+        $user = (new UserModel())->login($userName);
+
+        if ($user) {
+            View::renderTemplate('user/register.html', array('register_fail' => true));
+            return;
+        }
+
         (new UserModel())->register($userName, $this->getHashedPassword($password));
         RedirectLocation::redirect('/authentication/login');
     }

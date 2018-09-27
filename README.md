@@ -10,6 +10,7 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 
 ## Model View Controller
 
+![alt Mvc pattern image](https://github.com/Yasir-dev/php-mvc-blog/blob/master/mvc-pattern.jpg)
 
 ### Controller
 

@@ -73,7 +73,7 @@ class Router
      *
      * @return void
      */
-    public function dispatch($url)
+    public function dispatch(string $url)
     {
         $url = $this->removeQueryStringVariable($url);
 
@@ -159,7 +159,7 @@ class Router
      *
      * @return string
      */
-    private function getController()
+    private function getController(): string
     {
         return \sprintf(
             self::CONTROLLER_NAMESPACE_PATTERN,

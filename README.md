@@ -87,7 +87,7 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 ```
 
-### Front Controller
+### Front Controller (index.php)
 
 * The advantage of a front controller is that the URL does not need to map to a particular PHP script.
 * All users requests are send to one central place (front controller)

@@ -42,4 +42,47 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 
 * php: >=7.0.0
 * MySQL
-* HTTP Server - Nginx or Apache
+* HTTP Server - Nginx or Apache (tested with Apache)
+
+## Blog
+
+This blog project contains following features:
+
+* User registration
+* User login (using Sessin)
+* Adding/editting/deleting user posts
+* Adding/deleting comments for posts
+* All post by a user
+* All comments by a user
+
+### Database 
+
+The database contains three tables (users, posts and comments) 
+
+```
+CREATE TABLE `users` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+CREATE TABLE `posts` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+ `body` text COLLATE utf8_unicode_ci NOT NULL,
+ `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+	CREATE TABLE `comments` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `post_id` int(11) NOT NULL,
+ `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `body` text COLLATE utf8_unicode_ci NOT NULL,
+ `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+```

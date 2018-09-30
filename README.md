@@ -102,7 +102,7 @@ CREATE TABLE `comments` (
 
 ### Configure Web Server to have pretty URLS
 
-* Using Apache
+* Using Apache (tested)
 
 ```
 RewriteEngine On
@@ -111,4 +111,16 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+```
+
+* Using Nginx (not testing)
+
+```
+# nginx configuration
+
+location / {
+  if (!-e $request_filename){
+    rewrite ^(.*)$ /index.php?$1 break;
+  }
+}
 ```

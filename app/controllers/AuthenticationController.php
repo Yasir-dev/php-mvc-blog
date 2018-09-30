@@ -10,7 +10,7 @@ use core\AbstractController;
 use core\View;
 
 /**
- * UserModel AuthenticationController controller
+ * Authentication Controller
  *
  * PHP version 7
  *
@@ -59,7 +59,7 @@ class AuthenticationController extends AbstractController
     }
 
     /**
-     * PostController register action
+     * Post register action
      */
     public function registerPostAction()
     {
@@ -99,7 +99,7 @@ class AuthenticationController extends AbstractController
      *
      * @return bool|string
      */
-    private function getHashedPassword($password)
+    private function getHashedPassword(string $password)
     {
         return \password_hash(AppConfig::USER_PASSWORD_SALT.$password, PASSWORD_BCRYPT);
     }
@@ -112,7 +112,7 @@ class AuthenticationController extends AbstractController
      *
      * @return bool
      */
-    private function verifyPassword($password, $hash)
+    private function verifyPassword(string $password, string $hash)
     {
         return \password_verify(AppConfig::USER_PASSWORD_SALT.$password, $hash);
     }

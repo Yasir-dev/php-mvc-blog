@@ -5,7 +5,7 @@ namespace app\models;
 use core\AbstractModel;
 
 /**
- * UserModel Model
+ * User Model
  *
  * PHP version 7
  *
@@ -25,7 +25,7 @@ class UserModel extends AbstractModel
      *
      * @return mixed
      */
-    public function login($username)
+    public function login(string $username)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getSelectQuery());
         $statement->bindValue(':username', $username, \PDO::PARAM_STR);
@@ -42,7 +42,7 @@ class UserModel extends AbstractModel
      *
      * @return void
      */
-    public function register($username, $password)
+    public function register(string $username, string $password)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getInsertQuery());
         $statement->bindValue(':username', $username, \PDO::PARAM_STR);
@@ -56,7 +56,7 @@ class UserModel extends AbstractModel
      *
      * @return string
      */
-    private function getSelectQuery()
+    private function getSelectQuery(): string
     {
         return \sprintf(
             'SELECT username, password FROM %s WHERE username = :username',
@@ -69,7 +69,7 @@ class UserModel extends AbstractModel
      *
      * @return string
      */
-    private function getInsertQuery()
+    private function getInsertQuery(): string
     {
         return \sprintf(
             'INSERT INTO %s (username, password) VALUES (:username, :password)',

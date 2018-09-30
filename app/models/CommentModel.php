@@ -5,7 +5,7 @@ namespace app\models;
 use core\AbstractModel;
 
 /**
- * CommentModel Model
+ * Comment Model
  *
  * PHP version 7
  *
@@ -25,7 +25,7 @@ class CommentModel extends AbstractModel
      *
      * @return array
      */
-    public function getByPostId($postId)
+    public function getByPostId(int $postId): array
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getSelectQuery());
         $statement->bindValue(':post_id', $postId, \PDO::PARAM_INT);
@@ -35,13 +35,13 @@ class CommentModel extends AbstractModel
     }
 
     /**
-     * Return comments by post id
+     * Return comments by user name
      *
-     * @param int $postId PostController id
+     * @param string $userName User name
      *
      * @return array
      */
-    public function getByUser($userName)
+    public function getByUser(string $userName): array
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getSelectByUserQuery());
         $statement->bindValue(':username', $userName, \PDO::PARAM_STR);
@@ -59,7 +59,7 @@ class CommentModel extends AbstractModel
      *
      * @return void
      */
-    public function save($postId, $body, $username)
+    public function save(int $postId, string $body, string $username)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getInsertQuery());
         $statement->bindValue(':post_id', $postId, \PDO::PARAM_INT);
@@ -136,7 +136,7 @@ class CommentModel extends AbstractModel
      *
      * @return string
      */
-    private function getDeletePostByIdQuery()
+    private function getDeletePostByIdQuery(): string
     {
         return \sprintf(
             'DELETE FROM %s WHERE post_id = :post_id',
@@ -149,7 +149,7 @@ class CommentModel extends AbstractModel
      *
      * @return string
      */
-    private function getDeleteByIdQuery()
+    private function getDeleteByIdQuery(): string
     {
         return \sprintf(
             'DELETE FROM %s WHERE id = :id',

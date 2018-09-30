@@ -49,7 +49,7 @@ class Router
     /**
      * Add a route to the routing table
      *
-     * @param string $route      Route Url
+     * @param string $route     Route Url
      *
      * @param array $parameters Parameters (Controller, actions)
      *
@@ -172,7 +172,7 @@ class Router
      *
      * @return string
      */
-    private function getControllerAction()
+    private function getControllerAction(): string
     {
         return $this->convertToCamelCase($this->parameters['action']);
     }

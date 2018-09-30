@@ -5,7 +5,7 @@ namespace app\models;
 use core\AbstractModel;
 
 /**
- * PostController Model
+ * Post Model
  *
  * PHP version 7
  *
@@ -23,7 +23,7 @@ class PostModel extends AbstractModel
      *
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getSelectAllQuery());
         $statement->execute();
@@ -38,7 +38,7 @@ class PostModel extends AbstractModel
      *
      * @return array
      */
-    public function getById($id)
+    public function getById(int $id): array
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getSelectByIdQuery());
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -54,7 +54,7 @@ class PostModel extends AbstractModel
      *
      * @return array
      */
-    public function getByUser($userName)
+    public function getByUser(string $userName): array
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getSelectByUserQuery());
         $statement->bindValue(':username', $userName, \PDO::PARAM_STR);
@@ -72,7 +72,7 @@ class PostModel extends AbstractModel
      *
      * @return void
      */
-    public function save($title, $body, $username)
+    public function save(string $title, string $body, string $username)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getInsertQuery());
         $statement->bindValue(':title', $title, \PDO::PARAM_STR);
@@ -91,7 +91,7 @@ class PostModel extends AbstractModel
      *
      * @return void
      */
-    public function update($postId, $title, $body)
+    public function update(int $postId, string $title, string $body)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getUpdateQuery());
         $statement->bindValue(':title', $title, \PDO::PARAM_STR);
@@ -106,7 +106,7 @@ class PostModel extends AbstractModel
      *
      * @param int $postId PostController Id
      */
-    public function delete($postId)
+    public function delete(int $postId)
     {
         $statement = $this->getDatabaseConnection()->prepare($this->getDeleteByIdQuery());
         $statement->bindValue(':id', $postId, \PDO::PARAM_INT);
@@ -118,7 +118,7 @@ class PostModel extends AbstractModel
      *
      * @return string
      */
-    private function getSelectAllQuery()
+    private function getSelectAllQuery(): string
     {
         return \sprintf(
             'SELECT * FROM %s ORDER BY created_at DESC',
@@ -131,7 +131,7 @@ class PostModel extends AbstractModel
      *
      * @return string
      */
-    private function getSelectByIdQuery()
+    private function getSelectByIdQuery(): string
     {
         return \sprintf(
             'SELECT * FROM %s WHERE id = :id',
@@ -144,7 +144,7 @@ class PostModel extends AbstractModel
      *
      * @return string
      */
-    private function getSelectByUserQuery()
+    private function getSelectByUserQuery(): string
     {
         return \sprintf(
             'SELECT * FROM %s WHERE username = :username',
@@ -157,7 +157,7 @@ class PostModel extends AbstractModel
      *
      * @return string
      */
-    private function getInsertQuery()
+    private function getInsertQuery(): string
     {
         return \sprintf(
             "INSERT INTO %s (title, body, username) VALUES (:title, :body, :username)",
@@ -170,7 +170,7 @@ class PostModel extends AbstractModel
      *
      * @return string
      */
-    private function getUpdateQuery()
+    private function getUpdateQuery(): string
     {
         return \sprintf(
             "UPDATE %s SET title = :title, body = :body WHERE id = :id",
@@ -183,7 +183,7 @@ class PostModel extends AbstractModel
      *
      * @return string
      */
-    private function getDeleteByIdQuery()
+    private function getDeleteByIdQuery(): string
     {
         return \sprintf(
             'DELETE FROM %s WHERE id = :id',

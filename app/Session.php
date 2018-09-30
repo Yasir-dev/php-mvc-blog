@@ -27,7 +27,7 @@ class Session
      *
      * @return $this
      */
-    public function set($name, $value)
+    public function set($name, $value): Session
     {
         $_SESSION[$name] = $value;
 
@@ -41,7 +41,7 @@ class Session
      *
      * @return mixed
      */
-    public function get($name)
+    public function get(string $name)
     {
         if (isset($_SESSION[$name])) {
             return $_SESSION[$name];

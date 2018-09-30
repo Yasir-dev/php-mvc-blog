@@ -30,7 +30,7 @@ class Request
      *
      * @return mixed
      */
-    public static function get($parameter, $convertSpecialChars = false, $method = self::METHOD_POST)
+    public static function get(string $parameter, bool $convertSpecialChars = false, string $method = self::METHOD_POST)
     {
         $value = self::getParameter($parameter, $method);
 
@@ -46,7 +46,7 @@ class Request
      *
      * @return mixed
      */
-    public static function getQueryString()
+    public static function getQueryString(): string
     {
         return $_SERVER['QUERY_STRING'];
     }

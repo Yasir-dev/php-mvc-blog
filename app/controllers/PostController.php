@@ -10,7 +10,7 @@ use core\AbstractController;
 use core\View;
 
 /**
- * PostController controller
+ * Post Controller
  *
  * PHP version 7
  *
@@ -43,6 +43,8 @@ class PostController extends AbstractController
 
     /**
      * Show posts of a user
+     *
+     * @return void
      */
     public function userAction()
     {
@@ -50,17 +52,30 @@ class PostController extends AbstractController
 
         View::renderTemplate(
             'post/user_posts.html',
-            array('posts' => $posts, 'is_logged' => $this->session->get('login'), 'name' =>  $this->session->get('username'))
+            array(
+                'posts' => $posts,
+                'is_logged' => $this->session->get('login'),
+                'name' =>  $this->session->get('username')
+            )
         );
     }
 
+    /**
+     * User User comments
+     *
+     * @return void
+     */
     public function userCommentAction()
     {
         $comments = (new CommentModel())->getByUser(Request::get('name', false, Request::METHOD_GET));
 
         View::renderTemplate(
             'post/user_comments.html',
-            array('comments' => $comments, 'is_logged' => $this->session->get('login'), 'name' =>  $this->session->get('username'))
+            array(
+                'comments' => $comments,
+                'is_logged' => $this->session->get('login'),
+                'name' =>  $this->session->get('username')
+            )
         );
     }
 
@@ -76,7 +91,10 @@ class PostController extends AbstractController
         if ($isLoggedIn) {
             View::renderTemplate(
                 'post/add_post.html',
-                array('is_logged' => $isLoggedIn, 'name' =>  $this->session->get('username')));
+                array(
+                    'is_logged' => $isLoggedIn,
+                    'name' =>  $this->session->get('username')
+                ));
             return;
         }
 
@@ -85,6 +103,8 @@ class PostController extends AbstractController
 
     /**
      * Save post action
+     *
+     * @return void
      */
     public function saveAction()
     {
@@ -93,11 +113,14 @@ class PostController extends AbstractController
             Request::get('body', true),
             $this->session->get('username')
         );
+
         RedirectLocation::redirect('/');
     }
 
     /**
      * Add comment action
+     *
+     * @return void
      */
     public function addCommentAction()
     {
@@ -111,6 +134,8 @@ class PostController extends AbstractController
 
     /**
      * Save comment action
+     *
+     * @return void
      */
     public function saveCommentAction()
     {
@@ -124,6 +149,8 @@ class PostController extends AbstractController
 
     /**
      * Delete post action
+     *
+     * @return void
      */
     public function deleteAction()
     {
@@ -137,6 +164,8 @@ class PostController extends AbstractController
 
     /**
      * Edit action
+     *
+     * @return void
      */
     public function editAction()
     {
@@ -161,6 +190,8 @@ class PostController extends AbstractController
 
     /**
      * Edit post action
+     *
+     * @return void
      */
     public function editPostAction()
     {
@@ -170,6 +201,8 @@ class PostController extends AbstractController
 
     /**
      * Delete post comment
+     *
+     * @return void
      */
     public function deleteCommentAction()
     {
@@ -184,7 +217,7 @@ class PostController extends AbstractController
      *
      * @return int
      */
-    private function getId()
+    private function getId(): int
     {
         return $this->routeParameters['id'];
     }

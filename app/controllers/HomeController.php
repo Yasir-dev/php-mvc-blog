@@ -7,7 +7,7 @@ use core\View;
 use app\models\PostModel;
 
 /**
- * HomeController Controller
+ * Home Controller
  *
  * PHP version 7
  *
@@ -26,7 +26,11 @@ class HomeController extends AbstractController
 
         View::renderTemplate(
             'index.html',
-            array('posts' => $posts, 'is_logged' => $this->session->get('login'), 'name' =>  $this->session->get('username'))
+            array(
+                'posts' => $posts,
+                'is_logged' => $this->session->get('login'),
+                'name' =>  $this->session->get('username')
+            )
         );
     }
 }

@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% for comment in comments %}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <i>{{ comment.username }} commented</i>
-        <span class="pull-right">{{ comment.created_at | date("F j, Y, g:i a")  }}</span>
-    </div>
-    <div class="panel-body">
-        {{ comment.body }}
-            <p>
-                <span class="pull-right"> <a href="/post/{{ comment.post_id }}/show"> Show Post</a> </span>
-            </p>
-    </div>
-</div>
-{% endfor %}
+    {% for comment in comments %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i>{{ comment.username }} commented</i>
+                <span class="pull-right">{{ comment.created_at | date("F j, Y, g:i a")  }}</span>
+            </div>
+            <div class="panel-body">
+                {{ comment.body }}
+                    <p>
+                        <span class="pull-right"> <a href="/post/{{ comment.post_id }}/show"> Show Post</a> </span>
+                    </p>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

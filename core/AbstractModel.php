@@ -25,7 +25,7 @@ abstract class AbstractModel
      *
      * @return \PDO
      */
-    protected function getDatabaseConnection()
+    protected function getDatabaseConnection(): \PDO
     {
         if (null === $this->connection) {
             $this->connection = new \PDO($this->getDsn(), AppConfig::DB_USERNAME, AppConfig::DB_PASSWORD);
@@ -41,7 +41,7 @@ abstract class AbstractModel
      *
      * @return string
      */
-    private function getDsn()
+    private function getDsn(): string
     {
         return \sprintf(
             'mysql:host=%s;dbname=%s;charset=utf8',

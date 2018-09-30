@@ -16,7 +16,7 @@ class RedirectLocation
      *
      * @param string $location Location
      */
-    public static function redirect($location)
+    public static function redirect(string $location)
     {
         \header('Location: '.$location);
     }

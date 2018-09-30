@@ -44,7 +44,7 @@ abstract class AbstractController
      *
      * @throws \Exception
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments)
     {
         $method = \sprintf('%sAction', $name);
 
@@ -54,5 +54,25 @@ abstract class AbstractController
         }
 
         throw new \Exception("Method $method not found in contoller ".\get_class($this));
+    }
+
+    /**
+     * Before action filter - called before action method
+     *
+     * @return void
+     */
+    protected function beforeActionFilter()
+    {
+        //TODO implement this method to use any filter before action
+    }
+
+    /**
+     * After action filter - called after action method
+     *
+     * @return void
+     */
+    protected function afterActionFiler()
+    {
+        //TODO implement this method to use any filter after action
     }
 }

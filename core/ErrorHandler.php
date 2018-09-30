@@ -17,11 +17,11 @@ class ErrorHandler
      * @param int    $level    Error level
      * @param string $message  Error message
      * @param string $file     File name
-     * @param string $line     Line number
+     * @param int    $line     Line number
      *
      * @throws \ErrorException
      */
-    public static function handleError($level, $message, $file, $line)
+    public static function handleError(int $level, string $message, string $file, int $line)
     {
         if (error_reporting() !== 0) {  // to allow @ operator keep working
             throw new \ErrorException($message, 0, $level, $file, $line);
@@ -31,9 +31,9 @@ class ErrorHandler
     /**
      * Handle the exception
      *
-     * @param $exception
+     * @param \Exception $exception Exception
      */
-    public static function handleException($exception)
+    public static function handleException(\Exception $exception)
     {
         $statusCode = (404 === $exception->getCode() ? $exception->getCode() : 500);
 
@@ -53,7 +53,7 @@ class ErrorHandler
      *
      * @return string
      */
-    private static function getLogFile()
+    private static function getLogFile(): string
     {
       return  \sprintf(
             '%s/logs/log_report_%s.txt',

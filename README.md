@@ -1,6 +1,6 @@
 # Creating MVC (Model View Controller) Framework to build a blog
 
-I created this project for a coding challenge recently. The challenge was to create a Blog with PHP. The prerequisite for this coding challenge was to use MVC (Model View Controller) architectural approach. The use of any modern MVC Framework like Laravel, Symfony or Zend Framework was the not allowed.
+I created this project for a coding challenge recently. The challenge was to create a Blog with PHP. The prerequisite for this coding challenge was to use MVC (Model View Controller) architectural approach. The use of any modern MVC Framework like Laravel, Symfony or Zend Framework was not allowed.
 
 
 I always wondered how a MVC Framework works, so this was a good practice to create one. Althoug i have some first hand experience with Laravel Framework, which i used to create a small fun project.
@@ -10,7 +10,7 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 
 ## Model View Controller
 
-![alt Mvc pattern image](https://github.com/Yasir-dev/php-mvc-blog/blob/master/mvc-pattern-image.jpg)
+![alt Mvc pattern image](https://github.com/Yasir-dev/php-mvc-blog/blob/master/mvc_pattern_diagram.jpg)
 
 ### Controller
 
@@ -30,7 +30,7 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 * This is the data presention layer for the user.
 * View knows nothing about Model.
 
-## What is the benefit of MVC?
+## Advantages of MVC
 
 * The biggest advantage is the *Separation of concern* which means separating business logic from the presentation logic.
 * Code reusability (very fast development process)
@@ -38,4 +38,89 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 * Developer and designers can work in parallel 
 * Developer can focus on business and backend logic without concerning about presentation logic and designer can work on the presentation without concerning about business logic)
 
+## Requirements
 
+* php: >=7.0.0
+* MySQL
+* HTTP Server - Nginx or Apache (tested with Apache)
+
+## Blog
+
+This blog project contains following features:
+
+* User registration
+* User login (using Sessions)
+* Adding/editting/deleting user posts
+* Adding/deleting comments for posts
+* All post by a user
+* All comments by a user
+
+### Database 
+
+The database contains three tables (users, posts and comments) 
+
+```mysql
+CREATE TABLE `users` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+CREATE TABLE `posts` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+ `body` text COLLATE utf8_unicode_ci NOT NULL,
+ `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+CREATE TABLE `comments` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `post_id` int(11) NOT NULL,
+ `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `body` text COLLATE utf8_unicode_ci NOT NULL,
+ `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+```
+
+### Front Controller (index.php)
+
+* The advantage of a front controller is that the URL does not need to map to a particular PHP script.
+* All users requests are send to one central place (front controller)
+* Front controller is the centeral entry point for all the incoming user requests
+* Front controller handles the requests to its coresponding component.
+
+### Router
+
+* The router accepts the request URL/Route and then decides how to process it
+
+![alt Router image](https://github.com/Yasir-dev/php-mvc-blog/blob/master/router_diagram.jpg)
+
+### Configure Web Server to have pretty URLS
+
+* Using Apache (tested)
+
+```
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+```
+
+* Using Nginx (not testing)
+
+```
+# nginx configuration
+
+location / {
+  if (!-e $request_filename){
+    rewrite ^(.*)$ /index.php?$1 break;
+  }
+}
+```

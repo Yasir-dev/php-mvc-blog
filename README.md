@@ -49,7 +49,7 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 This blog project contains following features:
 
 * User registration
-* User login (using Sessin)
+* User login (using Sessions)
 * Adding/editting/deleting user posts
 * Adding/deleting comments for posts
 * All post by a user
@@ -100,3 +100,15 @@ CREATE TABLE `comments` (
 
 ![alt Router image](https://github.com/Yasir-dev/php-mvc-blog/blob/master/router_diagram.jpg)
 
+### Configure Web Server to have pretty URLS
+
+* Using Apache
+
+```
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+```

@@ -98,3 +98,5 @@ CREATE TABLE `comments` (
 
 * The router accepts the request URL/Route and then decides how to process it
 
+![alt Router image](https://github.com/Yasir-dev/php-mvc-blog/blob/master/router_diagram.jpg)
+

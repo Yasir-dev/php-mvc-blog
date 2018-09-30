@@ -1,6 +1,6 @@
 # Creating MVC (Model View Controller) Framework to build a blog
 
-I created this project for a coding challenge recently. The challenge was to create a Blog with PHP. The prerequisite for this coding challenge was to use MVC (Model View Controller) architectural approach. The use of any modern MVC Framework like Laravel, Symfony or Zend Framework was the not allowed.
+I created this project for a coding challenge recently. The challenge was to create a Blog with PHP. The prerequisite for this coding challenge was to use MVC (Model View Controller) architectural approach. The use of any modern MVC Framework like Laravel, Symfony or Zend Framework was not allowed.
 
 
 I always wondered how a MVC Framework works, so this was a good practice to create one. Althoug i have some first hand experience with Laravel Framework, which i used to create a small fun project.
@@ -30,7 +30,7 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 * This is the data presention layer for the user.
 * View knows nothing about Model.
 
-## What is the benefit of MVC?
+## Advantages of MVC
 
 * The biggest advantage is the *Separation of concern* which means separating business logic from the presentation logic.
 * Code reusability (very fast development process)
@@ -38,4 +38,8 @@ I always wondered how a MVC Framework works, so this was a good practice to crea
 * Developer and designers can work in parallel 
 * Developer can focus on business and backend logic without concerning about presentation logic and designer can work on the presentation without concerning about business logic)
 
+## Requirements
 
+* php: >=7.0.0
+* MySQL
+* HTTP Server - Nginx or Apache

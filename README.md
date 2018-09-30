@@ -59,7 +59,7 @@ This blog project contains following features:
 
 The database contains three tables (users, posts and comments) 
 
-```
+```mysql
 CREATE TABLE `users` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
  `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE `posts` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 
-	CREATE TABLE `comments` (
+CREATE TABLE `comments` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
  `post_id` int(11) NOT NULL,
  `username` varchar(100) COLLATE utf8_unicode_ci NOT NULL,

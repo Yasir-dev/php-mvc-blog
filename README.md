@@ -3,7 +3,7 @@
 I created this project for a coding challenge recently. The challenge was to create a Blog with PHP. The prerequisite for this coding challenge was to use MVC (Model View Controller) architectural approach. The use of any modern MVC Framework like Laravel, Symfony or Zend Framework was not allowed.
 
 
-I always wondered how a MVC Framework works, so this was a good practice to create one. Althoug i have some first hand experience with Laravel Framework, which i used to create a small fun project.
+I always wondered how a MVC Framework works internally, so this was a good practice to create one. Althoug i have some first hand experience with Laravel Framework, which i used to create a small fun project.
 
 **This project is only for learning purposes. If you really want to create a project using MVC architectural patteren use the modern PHP Frameworks (Laravel, Symfony or Zend Framework) available.**
 

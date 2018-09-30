@@ -113,7 +113,7 @@ RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(.*)$ index.php?$1 [L,QSA]
 ```
 
-* Using Nginx (not testing)
+* Using Nginx (not tested)
 
 ```
 # nginx configuration
